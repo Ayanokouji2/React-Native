@@ -1,118 +1,44 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useState} from 'react';
+import Home from './src/components/Home';
+import {ScrollView, Text, TextInput, View, Button, Alert} from 'react-native';
+import tw from 'twrnc';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const App = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+    const handleClick = () => {
+        console.log(`Username : ${username} and Password : ${password}`); // are Seen in terminal
+    };
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+    return (
+        <ScrollView>
+            <Home />
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+            <View
+                style={tw`p-4 bg-gray-100 flex flex-row gap-3 jusitfy-center items-center`}>
+                <Text style={tw`text-lg text-gray-800`}>Username :</Text>
+                <TextInput
+                    style={tw`bg-white h-11 w-[16rem] mx-auto text-lg px-2`}
+                    defaultValue={username}
+                    onChangeText={newText => setUsername(newText)}
+                />
+            </View>
+            <View style={tw`p-4 bg-gray-100 flex flex-row gap-3 items-center`}>
+                <Text style={tw`text-lg text-gray-800`}>Password :</Text>
+                <TextInput
+                    value={password}
+                    onChangeText={newText=> setPassword(newText)}
+                    style={tw`bg-white h-11 w-[16rem] mx-auto text-lg px-2`}
+                />
+            </View>
+            <View
+                style={tw`max-w-full bg-white border border-gray-200 rounded-lg shadow mx-auto my-10
+                        dark:bg-gray-800 dark:border-gray-700`}>
+                <Button title="Submit" onPress={handleClick} />
+            </View>
+        </ScrollView>
+    );
+};
 
 export default App;
